@@ -4,24 +4,25 @@
             <div class="text center-align">
                 Tasks Done
             </div>
-            <div class="number center-align">
-                50
+            <div class="number center-align" id = "done">
+                {{activeCount}}
             </div>
         </div>
         <div class="col s6">
-            <div class="text center-align">
+            <div class="text center-align" id = "left">
                 Tasks left
             </div>
             <div class="number center-align">
-                50
+                {{inactiveCount}}
             </div>
         </div>
     </div>
     <div class="row wrapper z-depth-2">
         <div class="col s12 task">
-            <p [ngClass]="{ 'done': isDone1}" (click)="toggle()">
-                <input type="checkbox" id="filled-in-box-1" checked="checked" />
-                <label for="filled-in-box-1" (click)="toggle()"><span>Filled in Filled inFilled inFilled inFilled inFilled inFilledinFilled inFilled inFilled inFilled inFilledinFilled inFilled inFilled inFilled inFilledinFilled inFilled inFilled inFilled inFilled in </span></label>
+        <div class="col s12 task" *ngFor = "let todo of toDos;let i = index">
+            <p [ngClass]="{ 'done': todo.is_done}" (click)="toggle(i)">
+                <!-- <input *ngIf = "!todo.status" type="checkbox" id="filled-in-box-1" checked="checked" /> -->
+                <label for="filled-in-box-1" (click)="toggle(i)"><span> {{todo.task}}</span></label>
             </p>
         </div>
     </div>
@@ -29,10 +30,10 @@
         <form action="">
             <div class="row">
                 <div class="input-field col">
-                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                    <input placeholder="Placeholder" id="first_name" [(ngModel)] = "todoText" name = "todoText" type="text" class="validate">
                 </div>
                 <div class="submit col">
-                    <a class="waves-effect waves-light btn right"><i class="material-icons right">send</i>Add</a>
+                    <a class="waves-effect waves-light btn right" (click) = addToDo()><i class="material-icons right">send</i>Add</a>
                 </div>
             </div>
         </form>
